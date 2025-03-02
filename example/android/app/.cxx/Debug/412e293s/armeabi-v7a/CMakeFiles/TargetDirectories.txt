@@ -1,0 +1,2 @@
+/Users/pannam/Desktop/flutter_examples/disk_space_plus/example/android/app/.cxx/Debug/412e293s/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+/Users/pannam/Desktop/flutter_examples/disk_space_plus/example/android/app/.cxx/Debug/412e293s/armeabi-v7a/CMakeFiles/edit_cache.dir
