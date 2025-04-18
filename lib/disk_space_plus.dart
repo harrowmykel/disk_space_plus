@@ -1,34 +1,26 @@
-import 'dart:async';
-import 'dart:io';
+// You have generated a new plugin project without specifying the `--platforms`
+// flag. A plugin project with no platform support was generated. To add a
+// platform, run `flutter create -t plugin --platforms <platforms> .` under the
+// same directory. You can also find a detailed instruction on how to add
+// platforms in the `pubspec.yaml` at
+// https://flutter.dev/to/pubspec-plugin-platforms.
 
-import 'package:flutter/services.dart';
+import 'disk_space_plus_platform_interface.dart';
 
 class DiskSpacePlus {
-  static const MethodChannel _channel = const MethodChannel('disk_space_plus');
-
-  static Future<String?> get platformVersion async {
-    final String? version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
+  Future<String?> getPlatformVersion() {
+    return DiskSpacePlusPlatform.instance.getPlatformVersion();
   }
 
-  static Future<double?> get getFreeDiskSpace async {
-    final double? freeDiskSpace =
-        await _channel.invokeMethod('getFreeDiskSpace');
-    return freeDiskSpace;
+  Future<double?> get getFreeDiskSpace async {
+    return DiskSpacePlusPlatform.instance.getTotalDiskSpace;
   }
 
-  static Future<double?> get getTotalDiskSpace async {
-    final double? totalDiskSpace =
-        await _channel.invokeMethod('getTotalDiskSpace');
-    return totalDiskSpace;
+  Future<double?> get getTotalDiskSpace async {
+    return DiskSpacePlusPlatform.instance.getTotalDiskSpace;
   }
 
-  static Future<double?> getFreeDiskSpaceForPath(String path) async {
-    if (!Directory(path).existsSync()) {
-      throw Exception("Specified path does not exist");
-    }
-    final double? freeDiskSpace =
-        await _channel.invokeMethod('getFreeDiskSpaceForPath', {"path": path});
-    return freeDiskSpace;
+  Future<double?> getFreeDiskSpaceForPath(String path) async {
+    return DiskSpacePlusPlatform.instance.getFreeDiskSpaceForPath(path);
   }
 }

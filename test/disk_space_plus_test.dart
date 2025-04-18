@@ -1,25 +1,29 @@
-import 'package:disk_space_plus/disk_space_plus.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:disk_space_plus/disk_space_plus.dart';
+import 'package:disk_space_plus/disk_space_plus_platform_interface.dart';
+import 'package:disk_space_plus/disk_space_plus_method_channel.dart';
+import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+
+class MockDiskSpacePlusPlatform
+    with MockPlatformInterfaceMixin
+    implements DiskSpacePlusPlatform {
+
+  @override
+  Future<String?> getPlatformVersion() => Future.value('42');
+}
 
 void main() {
-  const channel = MethodChannel('disk_space_plus');
+  final DiskSpacePlusPlatform initialPlatform = DiskSpacePlusPlatform.instance;
 
-  TestWidgetsFlutterBinding.ensureInitialized();
-
-  setUp(() {
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-        .setMockMethodCallHandler(channel, (methodCall) async {
-      return '42';
-    });
-  });
-
-  tearDown(() {
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-        .setMockMethodCallHandler(channel, null);
+  test('$MethodChannelDiskSpacePlus is the default instance', () {
+    expect(initialPlatform, isInstanceOf<MethodChannelDiskSpacePlus>());
   });
 
   test('getPlatformVersion', () async {
-    expect(await DiskSpacePlus.platformVersion, '42');
+    DiskSpacePlus diskSpacePlusPlugin = DiskSpacePlus();
+    MockDiskSpacePlusPlatform fakePlatform = MockDiskSpacePlusPlatform();
+    DiskSpacePlusPlatform.instance = fakePlatform;
+
+    expect(await diskSpacePlusPlugin.getPlatformVersion(), '42');
   });
 }

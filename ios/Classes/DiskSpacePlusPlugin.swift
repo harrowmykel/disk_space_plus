@@ -1,26 +1,26 @@
 import Flutter
 import UIKit
 
-public class SwiftDiskSpacePlusPlugin: NSObject, FlutterPlugin {
+public class DiskSpacePlusPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "disk_space_plus", binaryMessenger: registrar.messenger())
-    let instance = SwiftDiskSpacePlusPlugin()
+    let instance = DiskSpacePlusPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     switch call.method {
+    case "getPlatformVersion":
+      result("iOS " + UIDevice.current.systemVersion)
     case "getFreeDiskSpace":
-        result(UIDevice.current.freeDiskSpaceInMB)
+      result(UIDevice.current.freeDiskSpaceInMB)
     case "getTotalDiskSpace":
-        result(UIDevice.current.totalDiskSpaceInMB)
+      result(UIDevice.current.totalDiskSpaceInMB)
     case "getFreeDiskSpaceForPath":
-        result(UIDevice.current.freeDiskSpaceForPathInMB(path: (call.arguments as? [String: String])!["path"]!))
+      result(UIDevice.current.freeDiskSpaceForPathInMB(path: (call.arguments as? [String: String])!["path"]!))
     default:
-        result(0.0)
+      result(FlutterMethodNotImplemented)
     }
-    result("iOS " + UIDevice.current.systemVersion)
-
   }
 }
 
@@ -40,8 +40,6 @@ extension UIDevice {
     public func freeDiskSpaceForPathInMB(path: String) -> Double {
         return Double(freeDiskSpaceForPathInBytes(path: path) / (1024 * 1024))
     }
-    
-    
 
     //MARK: Get raw value
     var totalDiskSpaceInBytes:Int64 {
@@ -95,4 +93,3 @@ extension UIDevice {
     }
 
 }
-

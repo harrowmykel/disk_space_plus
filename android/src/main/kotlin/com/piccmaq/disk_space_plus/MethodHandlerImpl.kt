@@ -8,11 +8,16 @@ import io.flutter.plugin.common.MethodChannel
 class MethodHandlerImpl : MethodChannel.MethodCallHandler {
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         when(call.method) {
+            "getPlatformVersion" -> result.success(getPlatformVersion())
             "getFreeDiskSpace" -> result.success(getFreeDiskSpace())
             "getTotalDiskSpace" -> result.success(getTotalDiskSpace())
             "getFreeDiskSpaceForPath" -> result.success(getFreeDiskSpaceForPath(call.argument<String>("path")!!))
             else -> result.notImplemented()
         }
+    }
+
+    private fun getPlatformVersion(): String {
+        return "Android ${android.os.Build.VERSION.RELEASE}"
     }
 
     private fun getFreeDiskSpace(): Double {
