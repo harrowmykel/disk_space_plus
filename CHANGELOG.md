@@ -1,3 +1,10 @@
+## 0.2.5
+- rewrote code with `flutter create plugin `
+- made class methods non-static
+
+## 0.2.4
+- updated compilesdk version
+
 ## 0.2.3
 
 - Updated Class Name 
