@@ -1,7 +1,7 @@
 name: disk_space_plus
 description: A tiny Flutter Plugin to show free and total disk space.
-version: 0.2.5
-repository: https://github.com/harrowmykel/disk_space_plus
+version: 0.2.6
+repository: https://github.com/tractian/disk_space_plus
 
 environment:
   sdk: ^3.7.2
