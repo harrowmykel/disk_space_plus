@@ -23,7 +23,6 @@ class _MyAppState extends State<MyApp> {
   List<DirectorySpace> _directorySpace = [];
 
   String _platformVersion = 'Unknown';
-  final _diskSpacePlusPlugin = DiskSpacePlus();
 
   @override
   void initState() {
@@ -38,15 +37,14 @@ class _MyAppState extends State<MyApp> {
     // We also handle the message potentially returning null.
     try {
       platformVersion =
-          await _diskSpacePlusPlugin.getPlatformVersion() ??
+          await DiskSpacePlus.getPlatformVersion() ??
           'Unknown platform version';
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
-    DiskSpacePlus diskSpacePlus = DiskSpacePlus();
     double diskSpace = 0;
 
-    diskSpace = await diskSpacePlus.getFreeDiskSpace ?? 0;
+    diskSpace = await DiskSpacePlus.getFreeDiskSpace ?? 0;
 
     List<Directory> directories;
     List<DirectorySpace> directorySpace = [];
@@ -65,7 +63,7 @@ class _MyAppState extends State<MyApp> {
 
     for (var directory in directories) {
       var space =
-          await diskSpacePlus.getFreeDiskSpaceForPath(directory.path) ?? 0;
+          await DiskSpacePlus.getFreeDiskSpaceForPath(directory.path) ?? 0;
       directorySpace.add(DirectorySpace(directory: directory, space: space));
     }
 

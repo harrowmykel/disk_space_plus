@@ -32,8 +32,10 @@ migrate_working_dir/
 .flutter-plugins-dependencies
 build/
 
-
 .DS_Store
 .packages
 .pub/
 example/.flutter-plugins-dependencies
+
+# FVM Version Cache
+.fvm/
