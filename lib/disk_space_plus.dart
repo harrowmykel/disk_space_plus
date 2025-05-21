@@ -13,7 +13,7 @@ class DiskSpacePlus {
   }
 
   Future<double?> get getFreeDiskSpace async {
-    return DiskSpacePlusPlatform.instance.getTotalDiskSpace;
+    return DiskSpacePlusPlatform.instance.getFreeDiskSpace;
   }
 
   Future<double?> get getTotalDiskSpace async {
