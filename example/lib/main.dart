@@ -1,5 +1,6 @@
 import 'package:disk_space_plus_example/model.dart';
 import 'package:flutter/material.dart';
+
 import 'dart:async';
 import 'dart:io';
 
@@ -21,18 +22,17 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   double _diskSpace = 0;
   List<DirectorySpace> _directorySpace = [];
-
   String _platformVersion = 'Unknown';
   final _diskSpacePlusPlugin = DiskSpacePlus();
 
   @override
   void initState() {
     super.initState();
-    initDiskSpacePlus();
+    initPlatformState();
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initDiskSpacePlus() async {
+  Future<void> initPlatformState() async {
     String platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
@@ -43,6 +43,15 @@ class _MyAppState extends State<MyApp> {
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
+    if (!mounted) return;
+
+    setState(() {
+      _platformVersion = platformVersion;
+    });
+    initDiskSpacePlus();
+  }
+
+  Future<void> initDiskSpacePlus() async {
     DiskSpacePlus diskSpacePlus = DiskSpacePlus();
     double diskSpace = 0;
 
@@ -54,11 +63,10 @@ class _MyAppState extends State<MyApp> {
     if (Platform.isIOS) {
       directories = [await getApplicationDocumentsDirectory()];
     } else if (Platform.isAndroid) {
-      directories = await getExternalStorageDirectories(
+      final resp = await getExternalStorageDirectories(
         type: StorageDirectory.movies,
-      ).then(
-        (list) async => list ?? [await getApplicationDocumentsDirectory()],
       );
+      directories = resp ?? [await getApplicationDocumentsDirectory()];
     } else {
       return;
     }
@@ -72,11 +80,9 @@ class _MyAppState extends State<MyApp> {
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
-
     if (!mounted) return;
 
     setState(() {
-      _platformVersion = platformVersion;
       _diskSpace = diskSpace;
       _directorySpace = directorySpace;
     });
