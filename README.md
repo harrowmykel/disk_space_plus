@@ -22,4 +22,8 @@ instead of
 ```dart
 await DiskSpacePlus.getFreeDiskSpace;
 ```
-
+---
+# PLEASE IGNORE THIS LINE
+```
+flutter create --org com.piccmaq --template=plugin --platforms=android,ios -a kotlin disk_space_plus
+```

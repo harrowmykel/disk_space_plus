@@ -89,7 +89,5 @@ extension UIDevice {
                 return 0
             }
         }
-        
     }
-
 }
