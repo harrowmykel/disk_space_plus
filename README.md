@@ -7,7 +7,9 @@
 [![Pub Likes](https://img.shields.io/pub/likes/disk_space_plus)](https://pub.dev/packages/disk_space_plus/score)
 
 
-Get the information about free and total disk space for you device.
+Get the information about free and total disk space for your device.
+
+Result is in Megabytes (MB)
 
 ----
 Important change in 0.2.5

@@ -1,3 +1,6 @@
+## 0.2.6
+- updated readme to add result in MB
+
 ## 0.2.7
 - rewrote code with `flutter create --org com.piccmaq --template=plugin --platforms=android,ios -a kotlin disk_space_plus`
 - goal is to add flutter enforced Swift Package Manager support
