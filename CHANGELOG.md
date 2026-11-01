@@ -1,5 +1,5 @@
-## 0.2.6
-- rewrote code wiht `flutter create --org com.piccmaq --template=plugin --platforms=android,ios -a kotlin disk_space_plus`
+## 0.2.7
+- rewrote code with `flutter create --org com.piccmaq --template=plugin --platforms=android,ios -a kotlin disk_space_plus`
 - goal is to add flutter enforced Swift Package Manager support
 - use `*.gradle.kts` instead of `*.gradle` e.g `build.gradle.kts` instead of `build.gradle`
 - flutter sdk `3.13.3` from `3.7.2`
